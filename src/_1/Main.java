@@ -1,8 +1,11 @@
 package _1;
 
 import java.util.Scanner;
+import java.util.Random;
 
 public class Main {
+
+	private static final double preciolitro = 0.5;
 
 	public static void main(String[] args) {
 
@@ -16,10 +19,20 @@ public class Main {
 		OvejaOvce oveja2 = new OvejaOvce("Coral", 50, 4, "liso");
 		OvejaOvce oveja3 = new OvejaOvce("Cebra", 37.6, 1, "rizado");
 
+		CerdoPrasa cerdo[] = { cerdo1 };
+		VacaKrava vaca[] = { vaca1, vaca2, vaca3 };
+		OvejaOvce oveja[] = { oveja1, oveja2, oveja3 };
 		AnimalesZvirat animales[] = { vaca1, vaca2, vaca3, cerdo1, oveja1, oveja2, oveja3 };
 
 		Scanner sc = new Scanner(System.in);
 		Scanner scl = new Scanner(System.in);
+		Random r = new Random();
+
+		double suma = 0;
+		double lechetot = 0;
+		double ventot = 0;
+		double venfin = 0;
+		double venlech = 0;
 
 		boolean konec = false;
 		while (!konec) {
@@ -30,7 +43,9 @@ public class Main {
 			case 1:
 				System.out.println("LISTADO DE ANIMAL");
 				for (int i = 0; i < animales.length; i++) {
-					animales[i].pedirDatos();
+					if (animales[i] != null) {
+						animales[i].pedirDatos();
+					}
 				}
 				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
 				scl.nextLine();
@@ -38,7 +53,9 @@ public class Main {
 			case 2:
 				System.out.println("MOSTRAR TIPO DE ANIMAL");
 				for (int i = 0; i < animales.length; i++) {
-					System.out.println((i + 1) + ".- " + animales[i].getNombre());
+					if (animales[i] != null) {
+						System.out.println((i + 1) + ".- " + animales[i].getNombre());
+					}
 				}
 				System.out.println("Elija el animal");
 				nameani = sc.nextInt() - 1;
@@ -56,16 +73,22 @@ public class Main {
 			case 3:
 				System.out.println("SUMAR ANYO A ANIMAL");
 				for (int i = 0; i < animales.length; i++) {
-					System.out.println((i + 1) + ".- " + animales[i].getNombre()+ " edad: " + animales[i].getEdad());
+					if (animales[i] != null) {
+						System.out
+								.println((i + 1) + ".- " + animales[i].getNombre() + " edad: " + animales[i].getEdad());
+					}
 				}
 				System.out.println("Elija el animal");
 				nameani = sc.nextInt() - 1;
 				if (animales[nameani] instanceof VacaKrava) {
-					System.out.println(animales[nameani].getNombre() + " ahora tiene " + animales[nameani].sumarEdad() + " anyo/rok");
+					System.out.println(animales[nameani].getNombre() + " ahora tiene " + animales[nameani].sumarEdad()
+							+ " anyo/rok");
 				} else if (animales[nameani] instanceof CerdoPrasa) {
-					System.out.println(animales[nameani].getNombre() + " ahora tiene " + animales[nameani].sumarEdad() + " anyo/rok");
+					System.out.println(animales[nameani].getNombre() + " ahora tiene " + animales[nameani].sumarEdad()
+							+ " anyo/rok");
 				} else if (animales[nameani] instanceof OvejaOvce) {
-					System.out.println(animales[nameani].getNombre() + " ahora tiene " + animales[nameani].sumarEdad() + " anyo/rok");
+					System.out.println(animales[nameani].getNombre() + " ahora tiene " + animales[nameani].sumarEdad()
+							+ " anyo/rok");
 				}
 				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
 				scl.nextLine();
@@ -73,7 +96,10 @@ public class Main {
 			case 4:
 				System.out.println("CAMBIAR PESO A ANIMAL");
 				for (int i = 0; i < animales.length; i++) {
-					System.out.println((i + 1) + ".- " + animales[i].getNombre()+ " peso: " + animales[i].getPeso() + " kg");
+					if (animales[i] != null) {
+						System.out.println(
+								(i + 1) + ".- " + animales[i].getNombre() + " peso: " + animales[i].getPeso() + " kg");
+					}
 				}
 				System.out.println("Elija el animal");
 				nameani = sc.nextInt() - 1;
@@ -84,39 +110,133 @@ public class Main {
 				} else if (animales[nameani] instanceof OvejaOvce) {
 					animales[nameani].sumarPeso();
 				}
-				
-				
+
 				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
 				scl.nextLine();
 				break;
 			case 5:
 				System.out.println("MARCAR ANIMAL COMO MUERTO");
-				
+				for (int i = 0; i < animales.length; i++) {
+					if (animales[i] != null) {
+						System.out.println((i + 1) + ".- " + animales[i].getNombre());
+					}
+				}
+				System.out.println("Elija el animal");
+				nameani = sc.nextInt() - 1;
+				if (animales[nameani] != null) {
+					System.out.println("El animal " + animales[nameani].getNombre() + " ha muerto");
+					if (animales[nameani] instanceof VacaKrava) {
+						for (int i = 0; i < vaca.length; i++) {
+							if (vaca[i].getNombre().equals(animales[nameani].getNombre())) {
+								vaca[i] = null;
+							}
+						}
+						animales[nameani] = null;
+					} else if (animales[nameani] instanceof CerdoPrasa) {
+						System.out.println("El animal " + animales[nameani].getNombre() + " ha muerto");
+						for (int i = 0; i < cerdo.length; i++) {
+							if (cerdo[i].getNombre().equals(animales[nameani].getNombre())) {
+								cerdo[i] = null;
+							}
+						}
+						animales[nameani] = null;
+					} else if (animales[nameani] instanceof OvejaOvce) {
+						System.out.println("El animal " + animales[nameani].getNombre() + " ha muerto");
+						for (int i = 0; i < oveja.length; i++) {
+							if (oveja[i].getNombre().equals(animales[nameani].getNombre())) {
+								oveja[i] = null;
+							}
+						}
+						animales[nameani] = null;
+					}
+
+				}
 				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
 				scl.nextLine();
 				break;
 			case 6:
 				System.out.println("ADQUIRIR NUEVO CERDO/PRASA");
-				
+				for (int i = 0; i < cerdo.length; i++) {
+					if (cerdo[i] != null) {
+
+						System.out.println("Ya existe un cerdo");
+
+					} else {
+						cerdo1.crearCerdo();
+					}
+				}
 				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
 				scl.nextLine();
 				break;
 			case 7:
 				System.out.println("LISTADO DE ANIMALES COMPLETO");
 				for (int i = 0; i < animales.length; i++) {
-					if (animales[i] instanceof VacaKrava) {
-						VacaKrava krava = (VacaKrava) animales[i];
-						System.out.println("vaca: " + animales[i].getNombre() + " " + animales[i].getPeso() + " " + animales[i].getEdad() + "anyos/let   uso: " + krava.getUso());
-					} else if (animales[i] instanceof CerdoPrasa) {
-						CerdoPrasa prasa = (CerdoPrasa) animales[i];
-						System.out.println("cerdo: " + animales[i].getNombre() + " " + animales[i].getPeso() + " " + animales[i].getEdad() + "anyos/let   color piel: " + prasa.getColor());
-					} else if (animales[i] instanceof OvejaOvce) {
-						OvejaOvce ovce = (OvejaOvce) animales[i];
-						System.out.println("oveja: " + animales[i].getNombre() + " " + animales[i].getPeso() + " " + animales[i].getEdad() + "anyos/let   tipo de pelo: " + ovce.getPelo());
+					if (animales[i] != null) {
+						if (animales[i] instanceof VacaKrava) {
+							VacaKrava krava = (VacaKrava) animales[i];
+							System.out.println("vaca: " + animales[i].getNombre() + " " + animales[i].getPeso() + " "
+									+ animales[i].getEdad() + "anyos/let   uso: " + krava.getUso());
+						} else if (animales[i] instanceof CerdoPrasa) {
+							CerdoPrasa prasa = (CerdoPrasa) animales[i];
+							System.out.println("cerdo: " + animales[i].getNombre() + " " + animales[i].getPeso() + " "
+									+ animales[i].getEdad() + "anyos/let   color piel: " + prasa.getColor());
+						} else if (animales[i] instanceof OvejaOvce) {
+							OvejaOvce ovce = (OvejaOvce) animales[i];
+							System.out.println("oveja: " + animales[i].getNombre() + " " + animales[i].getPeso() + " "
+									+ animales[i].getEdad() + "anyos/let   tipo de pelo: " + ovce.getPelo());
+						}
 					}
 				}
-				
-				
+
+				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
+				scl.nextLine();
+				break;
+			case 8:
+				System.out.println("OBTENCIO DE LECHE");
+				for (int i = 0; i < vaca.length; i++) {
+
+					if ((vaca[i] != null && vaca[i].getUso().equals("leche"))) {
+
+						double leche = r.nextInt(4) + 3;
+						double lech = r.nextDouble();
+						suma = leche + lech;
+						suma = Math.round(suma * 10.0) / 10.0;
+						System.out.println("Leche obtenida por " + vaca[i].getNombre() + " " + suma);
+						lechetot = lechetot + suma;
+					}
+
+				}
+
+				System.out.println(Math.round(lechetot * 10.0) / 10.0);
+				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
+				scl.nextLine();
+				break;
+
+			case 9:
+				boolean ex = false;
+				System.out.println("Leche en stock: " + Math.round(lechetot * 10.0) / 10.0);
+
+				if (lechetot > 0.0) {
+
+					while (!ex) {
+						System.out.println("Cuanta se quiere vender? ");
+						venlech = sc.nextDouble();
+						if (lechetot > venlech) {
+							ex = true;
+						} else {
+
+						}
+					}
+					System.out.println(venlech + "L");
+					lechetot = lechetot - venlech;
+					ventot = venlech * preciolitro;
+					System.out.println("Ganancias por esta venta: " + ventot + "euros");
+				} else {
+					System.out.println("No hay leche para vender");
+				}
+
+				venfin = venfin + ventot;
+				System.out.println("Ganancias acumuladas: " + venfin + "euros");
 				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
 				scl.nextLine();
 				break;
