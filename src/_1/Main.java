@@ -129,6 +129,7 @@ public class Main {
 						for (int i = 0; i < vaca.length; i++) {
 							if (vaca[i].getNombre().equals(animales[nameani].getNombre())) {
 								vaca[i] = null;
+								i = vaca.length;
 							}
 						}
 						animales[nameani] = null;
@@ -137,6 +138,7 @@ public class Main {
 						for (int i = 0; i < cerdo.length; i++) {
 							if (cerdo[i].getNombre().equals(animales[nameani].getNombre())) {
 								cerdo[i] = null;
+								i = cerdo.length;
 							}
 						}
 						animales[nameani] = null;
@@ -145,6 +147,7 @@ public class Main {
 						for (int i = 0; i < oveja.length; i++) {
 							if (oveja[i].getNombre().equals(animales[nameani].getNombre())) {
 								oveja[i] = null;
+								i = oveja.length;
 							}
 						}
 						animales[nameani] = null;
@@ -163,6 +166,12 @@ public class Main {
 
 					} else {
 						cerdo1.crearCerdo();
+						cerdo[i] = cerdo1;
+						for (int j = 0; j < animales.length; j++) {
+							if(animales[j] == null) {
+								animales[j] = cerdo1;
+							}
+						}
 					}
 				}
 				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
@@ -206,26 +215,24 @@ public class Main {
 					}
 
 				}
-
-				System.out.println(Math.round(lechetot * 10.0) / 10.0);
+				lechetot = Math.round(lechetot * 10.0) / 10.0;
+				System.out.println(lechetot);
 				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
 				scl.nextLine();
 				break;
 
 			case 9:
-				boolean ex = false;
+				String userEntry = "";
 				System.out.println("Leche en stock: " + Math.round(lechetot * 10.0) / 10.0);
 
 				if (lechetot > 0.0) {
 
-					while (!ex) {
+					while (!isNumeric(userEntry) || venlech > lechetot) {
 						System.out.println("Cuanta se quiere vender? ");
-						venlech = sc.nextDouble();
-						if (lechetot > venlech) {
-							ex = true;
-						} else {
-
-						}
+						userEntry = sc.nextLine();
+						if (isNumeric(userEntry)) {
+							venlech = Double.parseDouble(userEntry);
+						} 
 					}
 					System.out.println(venlech + "L");
 					lechetot = lechetot - venlech;
@@ -258,5 +265,14 @@ public class Main {
 		System.out.println("8.- Obtencion de leche");
 		System.out.println("9.- Venta de leche");
 	}
+	public static boolean isNumeric (String str) {
+		try {
+			Double.parseDouble(str);
+			return true;
+		}catch(NumberFormatException e) {
+			return false;
+		}
+	}
+	
 
 }
