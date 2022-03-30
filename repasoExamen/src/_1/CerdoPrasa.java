@@ -26,16 +26,15 @@ public class CerdoPrasa extends AnimalesZvirat{
 
 	public void crearCerdo() {
 		System.out.println("Nombre: ");
-		super.setNombre(sc.nextLine());
+		 super.setNombre(sc.nextLine());
 		System.out.println("Introduce el peso: ");
-		super.setPeso(sci.nextDouble());
+		 super.setPeso(sci.nextDouble()); 
 		System.out.println("Edad: ");
-		super.setEdad(sci.nextInt());
+		super.setEdad(sci.nextInt()); 
 		System.out.println("Color: ");
 		this.setColor(sc.nextLine());
 		
-		System.out.println("");
-		System.out.println("Nombre: " + super.getNombre() + " peso: " + super.getPeso() + " edad: " + super.getEdad() + " color: " + this.getColor());
+		System.out.println("Creado: " + super.getNombre());
 		
 		
 	}

@@ -52,11 +52,13 @@ public class Main {
 				break;
 			case 2:
 				System.out.println("MOSTRAR TIPO DE ANIMAL");
+
 				for (int i = 0; i < animales.length; i++) {
 					if (animales[i] != null) {
 						System.out.println((i + 1) + ".- " + animales[i].getNombre());
 					}
 				}
+
 				System.out.println("Elija el animal");
 				nameani = sc.nextInt() - 1;
 
@@ -67,6 +69,7 @@ public class Main {
 				} else if (animales[nameani] instanceof OvejaOvce) {
 					System.out.println(animales[nameani].getNombre() + " es oveja");
 				}
+
 				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
 				scl.nextLine();
 				break;
@@ -124,9 +127,10 @@ public class Main {
 				System.out.println("Elija el animal");
 				nameani = sc.nextInt() - 1;
 				if (animales[nameani] != null) {
-					
+
 					if (animales[nameani] instanceof VacaKrava) {
 						for (int i = 0; i < vaca.length; i++) {
+
 							if (vaca[i] != null && vaca[i].getNombre().equals(animales[nameani].getNombre())) {
 								vaca[i] = null;
 								i = vaca.length;
@@ -134,19 +138,23 @@ public class Main {
 						}
 						System.out.println("El animal " + animales[nameani].getNombre() + " ha muerto");
 						animales[nameani] = null;
+
 					} else if (animales[nameani] instanceof CerdoPrasa) {
-						
-						for (int i = 0; i < cerdo.length; i++) {
-							if (cerdo[i] != null && cerdo[i].getNombre().equals(animales[nameani].getNombre())) {
-								cerdo[i] = null;
-								i = cerdo.length;
+
+						if (animales[nameani] instanceof CerdoPrasa) {
+							for (int i = 0; i < cerdo.length; i++) {
+								if (cerdo[i].getNombre().equals(animales[nameani].getNombre())) {
+									cerdo[i] = null;
+									i = cerdo.length;
+								}
 							}
 						}
 						System.out.println("El animal " + animales[nameani].getNombre() + " ha muerto");
 						animales[nameani] = null;
 					} else if (animales[nameani] instanceof OvejaOvce) {
-						
+
 						for (int i = 0; i < oveja.length; i++) {
+
 							if (oveja[i] != null && oveja[i].getNombre().equals(animales[nameani].getNombre())) {
 								oveja[i] = null;
 								i = oveja.length;
@@ -169,15 +177,12 @@ public class Main {
 
 					} else {
 						cerdo1.crearCerdo();
+						cerdo[i] = cerdo1;
 						for (int j = 0; j < animales.length; j++) {
-							if(animales[j] == null) {
-								cerdo[i] = cerdo1;
+							if (animales[j] == null) {
 								animales[j] = cerdo1;
-								break;	
-								
 							}
 						}
-						break;	
 					}
 				}
 				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
@@ -189,15 +194,15 @@ public class Main {
 					if (animales[i] != null) {
 						if (animales[i] instanceof VacaKrava) {
 							VacaKrava krava = (VacaKrava) animales[i];
-							System.out.println("vaca: " + animales[i].getNombre() + " " + animales[i].getPeso() + " kg "
+							System.out.println("vaca: " + animales[i].getNombre() + " " + animales[i].getPeso() + " "
 									+ animales[i].getEdad() + " anyos/let   uso: " + krava.getUso());
 						} else if (animales[i] instanceof CerdoPrasa) {
 							CerdoPrasa prasa = (CerdoPrasa) animales[i];
-							System.out.println("cerdo: " + animales[i].getNombre() + " " + animales[i].getPeso() + " kg "
+							System.out.println("cerdo: " + animales[i].getNombre() + " " + animales[i].getPeso() + " "
 									+ animales[i].getEdad() + " anyos/let   color piel: " + prasa.getColor());
 						} else if (animales[i] instanceof OvejaOvce) {
 							OvejaOvce ovce = (OvejaOvce) animales[i];
-							System.out.println("oveja: " + animales[i].getNombre() + " " + animales[i].getPeso() + " kg "
+							System.out.println("oveja: " + animales[i].getNombre() + " " + animales[i].getPeso() + " "
 									+ animales[i].getEdad() + " anyos/let   tipo de pelo: " + ovce.getPelo());
 						}
 					}
@@ -216,7 +221,7 @@ public class Main {
 						double lech = r.nextDouble();
 						suma = leche + lech;
 						suma = Math.round(suma * 10.0) / 10.0;
-						System.out.println("Leche obtenida por " + vaca[i].getNombre() + " " + suma);
+						System.out.println("Leche obtenida por " + vaca[i].getNombre() + " : " + suma);
 						lechetot = lechetot + suma;
 					}
 
@@ -228,35 +233,46 @@ public class Main {
 				break;
 
 			case 9:
+
 				String userEntry = "";
-				System.out.println("Leche en stock: " + lechetot );
+
+				System.out.println("Leche en stock: " + Math.round(lechetot * 10.0) / 10.0);
 
 				if (lechetot > 0.0) {
 
 					while (!isNumeric(userEntry) || venlech > lechetot) {
 						System.out.println("Cuanta se quiere vender? ");
-						userEntry = sc.nextLine();
-						if (isNumeric(userEntry)) {
+						userEntry = scl.nextLine();
+						if (isNumeric(userEntry))
 							venlech = Double.parseDouble(userEntry);
-						} 
 					}
 					System.out.println(venlech + "L");
 					lechetot = lechetot - venlech;
 					ventot = venlech * preciolitro;
-					System.out.println("Ganancias por esta venta: " + ventot + "euros");
+					System.out.println("Ganancias por esta venta: " + (Math.round(ventot * 10.0) / 10.0) + " euros");
 				} else {
-					System.out.println("No hay leche para vender");
+					System.out.println("\nNo hay leche para vender\n");
 				}
 
 				venfin = venfin + ventot;
-				System.out.println("Ganancias acumuladas: " + venfin + "euros");
-				System.out.println("Pulse intro para volver al MENU PRINCIPAL");
+				venfin = Math.round(venfin * 10.0) / 10.0;
+				System.out.println("Ganancias acumuladas: " + venfin + " euros");
+				System.out.println("\nPulse intro para volver al MENU PRINCIPAL");
 				scl.nextLine();
 				break;
 			}
 
 		}
 
+	}
+
+	public static boolean isNumeric(String str) {
+		try {
+			Double.parseDouble(str);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 
 	private static void Menu() {
@@ -271,14 +287,5 @@ public class Main {
 		System.out.println("8.- Obtencion de leche");
 		System.out.println("9.- Venta de leche");
 	}
-	public static boolean isNumeric (String str) {
-		try {
-			Double.parseDouble(str);
-			return true;
-		}catch(NumberFormatException e) {
-			return false;
-		}
-	}
-	
 
 }
